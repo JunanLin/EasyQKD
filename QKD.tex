@@ -1,0 +1,205 @@
+\documentclass{article}
+\usepackage[letterpaper, total={6in, 9in}]{geometry}
+\usepackage{amssymb,mathtools}
+\usepackage{amsmath,dsfont,physics}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{hyperref,verbatim} 
+\usepackage{float}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{ulem}
+\usepackage{appendix}
+\usepackage{slashbox}
+\usepackage{multirow,hhline}
+\usepackage[table]{xcolor}
+
+
+
+
+\newcommand{\dket}[1]{\lvert #1 \rangle\!\rangle}
+\newcommand{\dbra}[1]{\langle\!\langle #1 \rvert}
+\newcommand{\dbraket}[2]{\langle\!\langle #1 \vert #2 \rangle\!\rangle}
+
+
+
+\def \todo #1{\textcolor{red}{#1}}
+\usepackage{cleveref}
+
+
+\begin{document}
+
+\title{Chocolate ball models for quantum key distribution protocols, and more}
+\author{Kayla Jacobs, Junan Lin, Tal Mor}
+\date{}
+
+\maketitle
+
+
+\todo{Key questions: 1. what's the significance of this paper? 2. who are the target readers of this paper?}
+%In this work, we provide an easy-to-understand model which explains the BB84 protocol for quantum key distribution.
+%Our model can be understood by someone with zero knowledge about quantum mechanics, or even about the number $\sqrt{2}$.
+
+
+
+
+\section{Introduction}
+Quantum key distribution (QKD) has been one of the most successful applications of quantum information science, due to the increasing needs for safe private key distribution protocols.
+
+We provide a simple explanation of the BB84 protocol that can be understood by a layperson: even someone who has no knowledge about complex numbers or even the number $\sqrt{2}$.
+We show that this model can be easily generalized to provide insights on the properties of higher dimensional quantum systems.
+
+\section{The BB84 Protocol}
+%\todo{(what is key distribution and why is it needed?)}
+Key distribution one practicable way to achieve safe classical communication.
+In public key cryptography, messages being sent between two parties are encrypted using some encryption key, such that it cannot be disclosed to a third party who are not in possession of the key.
+Clearly, it is important to have a way of securely distributing the key from the sender to the receiver in order for them to decrypt the message, while not leaking the key to a malice third party.
+
+
+Being the most well-known QKD protocol, BB84 got its name from its developers Bennett and Brassard who first introduced it in 1984 \cite{bennett1984quantum}.
+The problem being considered is as follows.
+Alice would like to transmit a string of random bits to Bob, so that the string can then be used as a secret key (known only to Alice and Bob) to encrypt meaningful messages.
+The classical communication channel between the two parties is unsafe, and a quantum channel (which allows them to send qubits to each other) could also be eavesdropped by a third party.
+Alice and Bob would like to know about the presence of an eavesdropper, provided that he/she holds some information about the secret key being sent.
+As shown by Bennett and Brassard, their scheme achieves secure communication whose security is based on the theory of quantum mechanics.
+%Many work has been done on analyzing the security of their protocol (and its variants) under different attack schemes by the eavesdropper \todo{(citations?)}.
+
+
+
+\section{Carrying out BB84 with chocolate balls}
+Below, we introduce a way to conduct the BB84 protocol using chocolate balls that has some exotic properties, which will be made explicit now. 
+We imagine that there is a machine that produces chocolate balls that have two characters: first, the color of a ball can be either red (R) or green (G); second, the taste can be either milk (M) or caramel (C).
+These two properties are independent of each other: for example, one ball may be red and has a milk taste, while another one can be red and has a caramel taste.
+However the machine cannot produce balls that are in a ``mixed'' state for each property: for example a ball cannot be both red and green, and cannot have both milk and caramel taste.
+Each ball produced by the machine will be wrapped in an identical piece of edible but opaque candy paper, such that neither its color nor its taste can be known from the outside.
+
+Next, we note that there are two key properties of the preparation machine and the chocolate balls.
+First, the machine can only prepare a chocolate ball with \textit{one definite property}.
+For example, one can choose to prepare a red ball, and in doing so they cannot control the taste of the ball produced by the machine: this red ball will come with a random (but single) taste.
+Second, if the candy paper is unwrapped for a ball and it is exposed to light, a chemical reaction will be triggered such that its content will immediately become completely tasteless.
+Thus one only has two options upon receiving a ball: they can either taste and swallow it (without unwrapping), making its color unknown during the process; or open the cover and see its color, thereby destroying its taste.
+In other words, one can only choose to obtain precise information about one of the two properties of a chocolate ball, but not both.
+%In the language of quantum information science, we say that one can only perform a one-time \textit{measurement} on a single property for each chocolate ball.
+
+Suppose Alice, in possession of such a machine, wants to send a string of random bits (along with some sweet treats) to her friend Bob as a string of secret keys.
+The only ways that they can communicate with each other include a classical communication channel which may not be safe, as well as a chocolate carrier called Eve which they may not trust.
+Prior to sending anything, she meets up with Bob (or communicates through the classical channel) and agree on a set of rules that assign classical bits 0 and 1 to each \textit{character} of a property.
+For example, they can assign 0 to red color and milk taste, and 1 to green color and caramel taste.
+Then, as they are separated and would like to communicate, they do the following for every bit Alice would like to send to Bob.
+First, Alice randomly chooses a property (color or taste), and produces a ball with this definite property using her machine.
+For example she can prepare a ball that has milk taste, which automatically implies that its color will be randomly red or green.
+Then, the ball is delivered to Bob by the carrier, Eve.
+Upon receiving, Bob randomly chooses what he would like to do with the ball: he can either open the cover and record its color, or eat it and record its taste.
+He then translates this obtained information into 0 or 1 according to the predefined rules, and record the bit in order of receiving the balls.
+After having sent a sufficient number of balls, Alice would announce to Bob through the classical channel how she produces the chocolate balls: in other words, she only tells Bob whether she prepared a ball with a definite color, or a definite taste, without telling Bob what color or taste was prepared, for every ball she sent.
+Bob then compares this list of production methods with his own method of retrieving the information, and only keep the bits under the cases where the two methods match: see \cref{table1} for all possibilities.
+This establishes a string of random bits shared between Alice and Bob.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c| } 
+ \hline
+  \backslashbox{Alice}{Bob} & Color & Taste \\ 
+  \hline 
+ Color & Keep & Discard \\
+ \hline 
+ Taste & Discard & Keep \\ 
+ \hline
+\end{tabular}
+\caption{Truth table for chocolate-ball QKD protocol.}
+\label{table1}
+\end{table}
+
+The two friends can now take a small portion of this long string of bits and compare.
+Ideally, the tho strings are identical, so the same should hold true for any subset of them.
+If, however, some of the bits do not match within this subset, then it is clear that the delivery person Eve did something to their chocolates, assuming that both Alice's machine and Bob's senses do not make mistakes.
+In this case, knowing that Eve is in possess of some information about their secret bits, Alice and Bob could warn her about this wrongdoing and try to re-send some chocolates later \todo{(or use some other methods mentioned in other literatures? e.g., privacy amplification?)}.
+
+
+The reason that this protocol achieves secure communication is identical to the BB84 protocol, but for completeness we will include the reasoning below.
+Suppose that Eve is in possess of a same chocolate machine, and she wants to tap on Alice's and Bob's secret bits.
+Because all balls are identical from the outside, in order to obtain any information Eve must either look at or taste a chocolate ball, making it useless for subsequent communication purposes.
+But since Eve has an identical chocolate machine as Alice, she could do the following: after intercepting a ball sent by Alice, she randomly chooses to taste or look at it, and then re-produce another ball that has the same property as measured by her.
+For example, if she looks at a particular ball and sees red, she would produce a red chocolate ball, and deliver it to Bob.
+Of course, this ball would have a random taste as well.
+Upon receiving from Eve, Bob (who does not know about what Eve did) randomly measures this new ball on its color or taste.
+There are two possible cases that could happen: first, if Eve chose to measure the same way as Alice prepared the ball, then she would have prepared a chocolate ball that is identical (statistically) as the one she received.
+Neither Alice nor Bob will be able to notice the presence of Eve.
+Second, if Eve chose to measure the wrong property (the one that does not match Alice's preparation), then over the long run Alice and Bob would notice that some of the measurements that were supposed to give identical results are now different.
+This happens when, for example, Alice prepares her chocolate ball with a red color, but Eve chose to taste it and obtained a random taste, and subsequently prepares another ball with the same taste and send it to Bob, who measured its color.
+Independent of which taste Eve prepared, the color is always random: thus there is a 50\% chance that Bob would see a green instead of a red ball.
+Overall, 25\% of all the usable bits shared between Alice and Bob will be different, if Eve measures and re-produces every chocolate ball that Alice is sending, as can be seen from \cref{table2}.
+This will result in an inconsistence when Alice and Bob compares a subset of their shared bits, provided that this sub-string is long enough.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{ |c | c|c|c|c| } 
+		\hline
+		\backslashbox{Bob}{Alice} & \multicolumn{2}{|c|}{Color} & \multicolumn{2}{|c|}{Taste} \\ 
+		\hhline{*{5}{-}}
+		\multirow{2}{5em}{Look} &  \multicolumn{2}{|c|}{ \cellcolor[HTML]{9af9a1} Look, 50\% } & \multicolumn{2}{|c|}{\multirow{2}{*}{Discard}} \\
+		\cline{2-3}
+		& \cellcolor[HTML]{f7bebe} Taste, 25\% & \cellcolor[HTML]{9af9a1} Taste, 25\% & \multicolumn{2}{|c|}{} \\
+		\hline
+		\multirow{2}{5em}{Taste} & \multicolumn{2}{|c|}{\multirow{2}{*}{Discard}} & \cellcolor[HTML]{f7bebe} Look, 25\% & \cellcolor[HTML]{9af9a1} Look, 25\% \\ 
+		\hhline{| ~ | ~  ~ | - | - |}
+		& \multicolumn{2}{|c|}{} & \multicolumn{2}{|c|}{ \cellcolor[HTML]{9af9a1} Taste, 50\%} \\
+		\hline
+	\end{tabular}
+	\caption{Truth table in the presence of Eavesdropper. The table entries indicate actions taken by the eavesdropper as well as their occurring probabilities. A green cell implies agreement between Alice and Bob, whereas a red cell implies a disagreement. Under 25\% of the cases their bits do not agree, which can be revealed by comparing a sub-string that is sufficiently long.}
+	\label{table2}
+\end{table}
+
+
+
+\section{Discussion}
+A similar ``classical implementation'' of the BB84 protocol has been discussed before~\cite{svozil2006staging,Svozil2014}. 
+The difference is that while in~\cite{svozil2006staging} the complementary observables corresponding to the two basis are demonstrated using different color filters, in our model the complementarity is enforced by the properties of the chocolate balls themselves.
+This removes the requirement in~\cite{svozil2006staging} that Eve must also put on color glasses, so is identical to the original photonic construction.
+Moreover, it was noted in~\cite{Svozil2014} that for the previous construction Alice and Bob cannot detect the presence of Eve because her measurement does not change the state of a chocolate ball.
+In comparison, we have provided a construct where complementarity can be understood under a very classical setting.
+Of course, as also noted in~\cite{Svozil2014}, the BB84 protocol did not make use of contextuality~\cite{kochen1975problem,bell2001problem}, another crucial resource of quantum systems~\cite{howard2014contextuality}.
+This makes it possible to construct ``classical'' analogies which are less ``counterintuitive'' and do not, for example, violate a general Bell inequality.
+
+The picture with classical complementary observables of chocolate balls can also be helpful in discussions about nonlocality.
+For example, non-local boxes (NLBs)~\cite{popescu1994quantum} are imaginary devices that allow two players Alice and Bob to win the CHSH game~\cite{buhrman2001quantum} with probability unity, whereas the best quantum strategy has a winning probability of $\cos[2](\pi/8) \approx 0.85$~\cite{broadbent2006power}.
+NLBs exhibit correlations that cannot be produced only by local rules, hence the name.
+In the chocolate ball picture, the correlations of an NLB can be translated as follows.
+Suppose now that the machine has been upgraded and can produce two non-local chocolate balls every time.
+Recall, that we have made the bit assignment that $R = 0,\ G = 1$ and $M = 0,\ C = 1$ to the characters of a ball.
+The pair of balls are produced and distributed to Alice and Bob who may be far apart and are not allowed to communicate.
+Upon receiving a ball, Alice and Bob can choose to either look or taste, and will obtain a bit corresponding to the observed character.
+The balls are correlated in the following way: if both Alice and Bob choose to taste, they will obtain results that correspond to the same bit, in this case the same taste.
+In all other cases, they will obtain results that correspond to opposite bits.
+As an example, if Alice tastes caramel ($C = 1$), then if Bob choose to taste then he will taste caramel ($C = 1$) too; and if Bob instead choose to look, he will observe red ($R = 0$).
+
+Our chocolate ball model creates new possibilities to explore beyond-quantum correlations like the NLBs, but can be further generalized to include more possibilities. 
+For example, the concept of mutually unbiased bases (MUBs) is an important concept in theoretical quantum information that also has practical consequences.
+It has been shown that some QKD protocols using higher dimensional systems (which require a larger number of MUBs) can offer security advantages compared to the original BB84 protocol~\cite{cerf2002security}.
+However, how to find the set of MUBs for a $d$--dimensional system when $d$ is not a prime power remains an unknown problem as of today~\cite{coles2017entropic}.
+Using the chocolate ball model, we can easily construct systems with an arbitrary number of MUBs by assuming additional characters that the balls may have: for example, in addition to color and taste, we may assume that the balls have additional characters such as texture, smell, etc.
+Their behavior with increased number of characters can provide insights onto the behavior of real quantum systems.
+%it is known that the number of mutually unbiased bases (MUBs) in a $d$--dimensional Hilbert space can at most be $d+1$~\cite{bandyopadhyay2002new}.
+%In the case of a qubit with $d=2$, the 3 MUBs are given by the Pauli matrices.
+
+
+
+\bibliographystyle{naturemag}
+\bibliography{references}
+
+%\clearpage
+%\newpage
+%\begin{appendices}
+%\section{Appendix}
+
+%\end{appendices}
+
+
+
+\end{document}
+
+
+
