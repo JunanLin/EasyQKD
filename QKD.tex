@@ -32,7 +32,7 @@
 
 \begin{document}
 
-\title{Chocolate ball models for quantum key distribution protocols, and more}
+\title{Quantum candies and quantum cryptography}
 \author{Kayla Jacobs, Junan Lin, Tal Mor}
 \date{}
 
@@ -40,20 +40,47 @@
 
 
 \todo{Key questions: 1. what's the significance of this paper? 2. who are the target readers of this paper?}
-%In this work, we provide an easy-to-understand model which explains the BB84 protocol for quantum key distribution.
+In this work, we provide a pedagogical model to explain various quantum cryptography protocols that is easy to understand, and has exact correspondence with the real protocols.
 %Our model can be understood by someone with zero knowledge about quantum mechanics, or even about the number $\sqrt{2}$.
 
 
 
 
 \section{Introduction}
-Quantum key distribution (QKD) has been one of the most successful applications of quantum information science, due to the increasing needs for safe private key distribution protocols.
+Quantum cryptography is arguably one of the most important applications of quantum information science.
+Nowadays there exists many proposals on how information can be securely transferred, whose safety are based on the laws of quantum mechanics~\cite{bennett1984quantum}\todo{(add more citations)}.
+On the other hand, the theory behind these protocols may be abstruse for someone without a background in quantum physics and quantum information.
+This hinders general audiences from correctly understanding these concepts and is unhelpful for publicizing quantum technologies.
 
-We provide a simple explanation of the BB84 protocol that can be understood by a layperson: even someone who has no knowledge about complex numbers or even the number $\sqrt{2}$.
-We show that this model can be easily generalized to provide insights on the properties of higher dimensional quantum systems.
+We provide a simple but powerful model, which contains nothing more than a candy-producing machine and some candies, that is capable of explaining various quantum cryptographic protocols.
+In general, we expect out model to be fully understandable by a layperson, presumably someone who has no knowledge about complex numbers or even the number $\sqrt{2}$.
+On the other hand, unlike some previous constructions, our model has an exact correspondence with the true quantum mechanical model.
+This makes it a powerful tool for understanding and developing more complex protocols.
+
+\section{Quantum candy model}
+Imagine that there exists a machine which produces candies.
+Each candy can have multiple \textit{properties}, examples of which include color, taste, texture, etc.
+Under each property there may be multiple \textit{characters}: for example, the color of a candy can be red or green or blue, the taste can be chocolate or milk or caramel.
+Different properties can coexist on a single candy: for example, a candy can have a red color, a chocolate taste, and a crunchy texture.
+However, a candy cannot show more than one character at the same time for each property.
+For example, it cannot be both red and green.
+Each candy produced by the machine will be wrapped in an identical piece of edible but opaque candy paper, such that none of its properties can be known by only looking at its appearance.
+
+When a person uses the machine produces a candy, he/she must specify a character for \textit{one} property, and one property only: other properties that do not get specified will be randomly assigned a character by the machine, which is unknown to the outside world.
+The machine does not allow specifying more than one property.
+For example, Alice can input to the machine that she would like to prepare a red candy.
+She knows for certain that she will get a candy with red color, but is completely ignorant about its other properties, such as its taste.
+Here we must emphasize that there is no way to get around this ignorance: it is absolutely impossible to, for example, hack the machine and obtain this additional information.
+It is then natural to ask what can we learn from a candy that has been produced.
+With non-quantum candies, it is clear that 
+
+Let's summarize the key information presented above.
+
+
+\section{Quantum cryptography with candies}
+
 
 \section{The BB84 Protocol}
-%\todo{(what is key distribution and why is it needed?)}
 Key distribution one practicable way to achieve safe classical communication.
 In public key cryptography, messages being sent between two parties are encrypted using some encryption key, such that it cannot be disclosed to a third party who are not in possession of the key.
 Clearly, it is important to have a way of securely distributing the key from the sender to the receiver in order for them to decrypt the message, while not leaking the key to a malice third party.
