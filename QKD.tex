@@ -39,37 +39,48 @@
 \maketitle
 
 
-In this work, we provide a pedagogical model to explain various quantum cryptography protocols that is easy to understand, and has exact correspondence with the real protocols.
-%Our model can be understood by someone with zero knowledge about quantum mechanics, or even about the number $\sqrt{2}$.
-
+In this work, we introduce a pedagogical model for describing some characteristic properties of quantum mechanical systems, such as complementarity, superposition, and no-cloning.
+We use this model to describe some common quantum cryptography protocols in a way that is easy to understand by someone without previous knowledge on quantum mechanics.
+This intuitive description can be useful for researchers to understand and visualize protocols, or for the general public to make sense of quantum technologies.
 
 
 
 \section{Introduction}
-Quantum cryptography is arguably one of the most important applications of quantum information science.
-Nowadays there exists many proposals on how information can be securely transferred, whose safety are based on the laws of quantum mechanics~\cite{bennett1984quantum}\todo{(add more citations)}.
-On the other hand, the theory behind these protocols may be abstruse for someone without a background in quantum physics and quantum information.
+The development of quantum information science has proved fruitful in both theoretical and experimental aspects.
+In particular, among the realized demonstrations, quantum key distribution (QKD) protocols are arguably the most successful and practical examples\todo{(add some example work)}.
+It is gratifying to see that the public is becoming more familiar with quantum technology research than ever, thanks to the advancement of Internet and social media.
+On the other hand, while the basic idea behind these protocols are not very complicated for an insider, it can be abstruse for someone without a background in quantum physics and quantum information.
 This hinders general audiences from correctly understanding these concepts and is unhelpful for publicizing quantum technologies.
 
-We provide a simple but powerful model, which contains nothing more than a candy-producing machine and some candies, that is capable of explaining various quantum cryptography protocols.
+In this work, we provide a simple but powerful model containing candy-producing machine and some candies, which is capable of explaining various quantum cryptography protocols.
 In general, we expect out model to be fully understandable by a layperson, presumably someone who has no knowledge about complex numbers or even the number $\sqrt{2}$.
-On the other hand, unlike some previous constructions, our model has an exact correspondence with the true quantum mechanical model.
+On the other hand, our model improves upon previous constructions and has a more accurate correspondence with the true quantum mechanical model.
 This makes it a powerful tool for understanding and developing more complex protocols.
+After introducing the setup, we will illustrate how common quantum cryptographic protocols can be properly explained with this model, and discuss the correspondence with conventional quantum mechanics.
+
 
 \section{Quantum candy model}
-Imagine that there exists a machine which produces candies.
-Each candy can have multiple \textit{properties}, examples of which include color, taste, texture, etc.
-Under each property there may be multiple \textit{characters}: for example, the color of a candy can be red or green or blue, the taste can be chocolate or caramel or milk.
+Let us imagine a machine that produces candies.
+Each candy produced by it can have multiple \textit{properties}, examples of which include color, taste, texture, etc.
+Under each property can be multiple \textit{characters}: for example, the color of a candy can be red or green or blue, the taste can be chocolate or vanilla or milk.
 Different properties can coexist on a single candy: for example, a candy can have a red color, a chocolate taste, and a crunchy texture.
-However, a candy cannot show more than one character at the same time for each property.
-For example, it cannot be both red and green.
-Each candy produced by the machine will be wrapped in an identical piece of edible but opaque candy paper, such that none of its properties can be known by only looking at its appearance.
+However, a candy cannot show more than one character at the same time for each property: for example, it cannot be both red and green.
+As shown in \cref{candy}, each candy produced by the machine will be wrapped in an identical piece of edible but opaque candy paper, such that none of its properties can be known by only looking at its appearance.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{candy.png}
+	\caption{Top: illustrative figures of quantum candies with 3 properties (from left to right: a  candy wrapped in opaque paper; a green, chocolate, crunchy candy; and a red, vanilla, soft candy). Bottom: a candy machine producing a candy with 2 properties (color and taste), each having 2 characters (red vs. green, chocolate vs. vanilla).} 
+	\label{candy}
+\end{figure}
 
 When a person uses the machine produces a candy, he/she must specify a character for \textit{one} property, and one property only: other properties that do not get specified will be randomly assigned a character by the machine, which is unknown to the outside world.
+As demonstrated in \cref{candy}, the user would press one button on the machine, and it will produce a candy with that character.
 The machine does not allow specifying more than one property.
 For example, Alice can input to the machine that she would like to prepare a red candy.
 She knows for certain that she will get a candy with red color, but is completely ignorant about its other properties, such as its taste.
-Here we must emphasize that there is no way to get around this ignorance: it is absolutely impossible to, for example, hack the machine and obtain this additional information.
+Moreover, there is no way to get around this ignorance: it is absolutely impossible to, for example, hack the machine and obtain this additional information.
+
 It is then natural to ask what can we learn from a candy that has been produced.
 With non-quantum candies, it is clear that one can know both the color and taste of a candy unambiguously; however, this is forbidden for quantum candies.
 We require that depending on what was done to the candy, only the exact character corresponding to \textit{one} property can be known.
@@ -83,21 +94,7 @@ A similar model can be constructed for candies with more properties, although th
 Let's summarize the key information presented above.
 First, the candy machine prepares candies with only one definite property, and randomly assigns a character to other properties.
 Second, no information about a candy can be obtained just from its appearance.
-Third, depending on what was done to a candy, at most one of its property can be precisely known, and information on its other properties will be permanently lost during this process.
-
-\section{Relating candy and quantum picture}
-As their name suggests, quantum candies are designed so that they exhibit quantum-like behaviors.
-The most important characteristics of the candies that allow them to demonstrate most quantum cryptography protocols, are complementarity and randomness.
-Complementarity implies that one cannot simultaneously determine multiple non-commuting observables of a quantum system, while randomness means that when the system is measured, the actual outcome is randomly drawn from all possible outcomes according to some probability distribution.
-In the candy model, different properties of a candy correspond to non-commuting observables in quantum mechanics, and the characters for each property correspond to possible outcomes of an observable when a measurement is made.
-The machine illustrates the procedure of preparing a quantum system in the eigenstate of one observable.
-The process of trying to learn a property of a candy represents a projective measurement of the quantum system in some basis.
-In this process, complementarity between observables is enforced by requiring that one can only learn about one property of a candy, after which the candy is considered destroyed (in an analogy with projective measurements of some quantum systems such as photons).
-Quantum randomness is represented by internally creating random (but fixed) characters within the machine for properties that are not specified, which cannot be learned from the outside.
-
-
-We point out briefly here that the different properties of a candy are not only complementary to each other, but also \textit{mutually unbiased}, meaning that if it is prepared with one definite property $A$, but one tries to learn about another property $B$, then the outcomes would not be biased towards any characters of $B$, resulting in a uniform probability distribution.
-This was designed to represent the concept of mutually unbiased bases (MUBs) in quantum systems.
+Third, depending on what was done to a candy, at most one of its property can be learned precisely, and information on its other properties will be permanently lost during this process.
 
 
 \section{Quantum cryptography with candies}
@@ -111,16 +108,16 @@ Alice and Bob would like to know about the presence of an eavesdropper, provided
 
 \subsection{The BB84 Protocol}
 
-The BB84 protocol is a well-known QKD protocol proposed in 1984, whose name came from its proposers Bennett and Brassard~\cite{bennett1984quantum}.
+The BB84 protocol is, arguably, the most well-known QKD protocol, proposed in 1984 by Bennett and Brassard~\cite{bennett1984quantum}.
 Their scheme allows Alice and Bob to detect the presence of a potential eavesdropper who may be trying to tap on their secret bits, and we will show that they can achieve this using a machine that produces candies with two properties, say color and taste.
 In addition, they also need a classical communication channel and a method to deliver candies from Alice to Bob, which can both be unsafe.
 
-Prior to sending anything, she meets up with Bob (or communicates through the classical channel) and agree on a set of rules that assign the bit 0 to red color and caramel taste, and 1 to green color and chocolate taste.
+Prior to sending anything, she meets up with Bob (or communicates through the classical channel) and agree on a set of rules that assign the bit 0 to red color and vanilla taste, and 1 to green color and chocolate taste.
 Then, the two parties are separated and can only communicate through the classical channel and the candy channel.
-Alice repeatedly does the following: she produces a random bit, and makes a candy with a random property that has a character matching her bit.
-For example, if she wants to send the bit 0, she can either make a red candy, or a candy with caramel taste.
+Alice repeatedly does the following: she produces a random bit (0 or 1), and makes a candy with a random property that has a character matching her bit.
+For example, if she wants to send the bit 0, she can either make a red candy, or a candy with vanilla taste.
 This candy is then delivered to Bob.
-Upon receiving, Bob randomly chooses what he would like to do with the candy: he can either open the cover and record its color, or eat it and record its taste.
+Upon receiving, Bob randomly decides what he would like to do with the candy: he can either open the cover and record its color, or eat it and record its taste.
 He then translates this obtained information into 0 or 1 according to the predefined rules, and record the bit in the order of receiving the candies.
 After having sent a sufficient number of candies, Alice would announce to Bob through the classical channel whether she prepared a candy with a definite color or taste for all candies, in the order of preparation.
 Bob then compares this list of production methods with his own method of retrieving the information, and only keep the bits under the cases where the two methods match.
@@ -149,7 +146,7 @@ The best that Eve can do is to prepare a candy with the same property as known b
 Upon receiving from Eve, Bob (who does not know about the presence of Eve) randomly measures this new candy on its color or taste.
 In the cases where Eve's preparation does not match with Alice's, there is a 50\% probability that Alice and Bob would notice a mismatch between their bits, as shown in \cref{table2}.
 Overall, if Eve has intercepted a total of $N$ candies from Alice, then there will be approximately $N/4$ mismatched bits in the ones shared by Alice and Bob, which can be revealed if they compare a subset of their bits through the classical channel.
-Under this case, Alice and Bob can either discard their string and resend later, or use protocols such as privacy amplification to reduce the portion  \todo{(or use some other methods mentioned in other literatures? e.g., privacy amplification?)}.
+Under this case, Alice and Bob can either discard their string and resend later, or \todo{use protocols such as privacy amplification to reduce the fraction of information  in Eve's hand (make sure this is the correct statement)}.
 
 \begin{table}[h!]
 	\centering
@@ -176,7 +173,7 @@ Here, Alice would use the same machine as she used in the BB84 protocol and the 
 However, she only prepares two types of candies: red and chocolate, and tells Bob that they stand for bits 0 and 1 respectively.
 When Bob receives a candy, he also randomly chooses to taste or look at it, but does not reveal his choice to Alice as in BB84.
 Instead, he tells Alice whether he \textit{succeeds} or \textit{fails} for every candy through the classical channel, where the success condition is defined as obtaining a character that was not prepared by Alice.
-In other words, Bob succeeds if he tastes caramel or sees green, and he associates green with the bit 1 and caramel with 0.
+In other words, Bob succeeds if he tastes vanilla or sees green, and he associates green with the bit 1 and vanilla with 0.
 After Alice has sent enough number of bits, they keep only the succeeded cases and discard the failed ones.
 As in BB84, they then compare a subset of the bits to determine whether an eavesdropper is present.
 
@@ -197,13 +194,13 @@ As in BB84, they then compare a subset of the bits to determine whether an eaves
 
 It is easy to understand the reasoning behind this protocol in the candy picture.
 Since Alice did not make a green candy, any such cases must come from the cases where Alice chose to prepare a chocolate candy, indicating that she was trying to send a bit 1.
-The same argument applies for tasting caramel.
+The same argument applies for tasting vanilla.
 On the other hand, seeing red is an inconclusive result, because it can happen regardless of which bit Alice was sending.
 If Eve intercepts Alice's candy, she cannot make a perfect copy and resend to Bob due to her finite probability of failure, which will affect the joint result between Alice and Bob.
 
 \subsection{The six-state protocol}
 The six-state protocol is another generalization to the original BB84 protocol, where all 3 pairs of orthonormal basis states for a qubit are used.
-For this protocol, we assume that the machine is now capable of preparing candies with three properties.
+For this protocol, we assume that the machine is now capable of preparing candies with 3 properties.
 As previously mentioned, we can imagine the candies as having a color, a taste, and a texture, each having 2 characters.
 The texture of a candy can be, for example, soft or crunchy.
 On the other hand, the requirement that the machine can only prepare a candy with one definite property does not change; so does the condition that one can only know one property of a candy.
@@ -220,37 +217,77 @@ The procedure for Alice and Bob are identical as in BB84, only that now there ar
 Upon successful matching of one candy, Alice and Bob would share a trit of information.
 And just like in the other protocols, if Eve examines a different property than Alice's choice, she would (statistically) inevitably introduce errors to Bob's results.
 
+
+\section{Correspondence with quantum mechanics}
+As their name suggests, quantum candies are designed so that they exhibit quantum-like behaviors.
+The most important characteristics of the candies that allow them to demonstrate most quantum cryptography protocols, are complementarity and randomness.
+Complementarity implies that one cannot simultaneously determine multiple non-commuting observables of a quantum system, while randomness means that when the system is measured, the actual outcome is randomly drawn from all possible outcomes according to some probability distribution.
+In the candy model, different properties of a candy correspond to non-commuting observables in quantum mechanics, and the characters for each property correspond to possible outcomes of an observable when a measurement is made.
+The machine illustrates the procedure of preparing a quantum system in the eigenstate of one observable.
+The process of trying to learn a property of a candy represents a projective measurement of the quantum system in some basis.
+In this process, complementarity between observables is enforced by requiring that one can only learn about one property of a candy, after which the candy is considered destroyed (in an analogy with projective measurements of some quantum systems such as photons).
+Quantum randomness is represented by internally creating random (but fixed) characters within the machine for properties that are not specified, which cannot be learned from the outside.
+Under this context it is easy to explain the principle of quantum superposition: If Alice made a red candy but Bob wants to know its taste, then before Bob tastes it, he would describe it as being in a superposition of vanilla and chocolate states, meaning that both tastes can be possible.
+Only after tasting it can Bob determine its taste, which corresponding to a ``collapse of wavefunction'' according to the Copenhagen interpretation.
+In addition, the no-cloning theorem from quantum information also comes for free, which states that there is no valid quantum operation that can copy an arbitrary input state.
+This translates into the impossibility to prepare two identical candies, due to the intrinsic uncertainty of the machines.
+
+One may point out that since the candies lose all its properties after a single action is performed on it, only destructive measurement schemes can be accurately described using this model, however this is not true.
+To describe non-destructive measurements, we can require that after an observation, a new candy is prepared to have the same character as the observed one, which corresponds to the post-measurement quantum state.
+This also demonstrates the phenomenon that knowing the outcome from a quantum measurement would change our description of a quantum state.
+
+We also point out briefly here that the different properties of a candy are not only complementary to each other, but also \textit{mutually unbiased}.
+This means that if a candy is prepared with one definite property $A$, but one tries to learn about another property $B$, then the outcomes are biased towards any characters of $B$, resulting in a uniform probability distribution.
+This was designed to relate to the concept of mutually unbiased bases (MUBs) in quantum systems.
+On the other hand, analogy with an arbitrary quantum state is possible by changing the preparation result to some other probability distribution from the uniform one.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{E91.png}
+	\caption{The directions in which spin magnetic moment is measured by Alice and Bob in the E91 protocol, when spin-1/2 particles are used.} 
+	\label{E91}
+\end{figure}
+
+So far, the candy model is capable of demonstrating all quantum phenomena that has been described: we merely need to add more properties and possible characters in order to incorporate higher dimensional systems.
+A less intuitive modification is needed, however, if one attempts to demonstrate QKD protocols based on entanglement such as the E91 protocol proposed by Ekert in 1991~\cite{Ekert1991quantum}.
+Here, a central source generates pairs of entangled qubits and send one particle to Alice, the other one to Bob.
+Upon receiving, they randomly pick a basis (out of three) to measure the qubit, and communicate through the classical channel their basis.
+The potential presence of an eavesdropper is revealed by a less-than-optimal violation of a Bell inequality.
+Because our candy picture has so far been local realistic, we must introduce new features to the candies in order to correctly describe the E91 protocol.
+The common approach is to make them realistic but nonlocal, such that there is a common set of rules that describes what color/taste would Alice and Bob obtain as a function of their \textit{combined} operation.
+This idea goes back to Popescu and Rohrlich~\cite{popescu1994quantum} where they proposed a seminal system, known as PR-boxes nowadays, that has this property.
+Clearly, our candy model can be easily modified to incorporate these correlations.
+\todo{A work on the usefulness of this model in discussing nonlocality is currently ongoing. (should this be mentioned?)}
+
+In addition to key distribution, there exists other cryptography protocols that have different purposes.
+One example is bit commitment, where Alice would like to deliver a bit to Bob, and reveal the bit at a later time.
+However, the two parties may not trust each other: for example, Bob may suspect that Alice could change her bit after it has been sent, and Alice may suspect that Bob could somehow know the bit before she decides to reveal it.
+Consider now the following method using a candy machine, where the original quantum scheme was due to Bennett and Brassard~\cite{bennett1984quantum}. 
+For now, we'll assume that we're using the local realistic candy machine that cannot produce nonlocal candies.
+In the protocol, Alice prepares $n$ candies with definite colors (randomly red or green) if she wants to commit a bit 0, or with definite taste if she wants to commit 1.
+She keeps a record of what she has prepared (a list of red, green, green, red, etc., for example), and delivers the candies to Bob, without telling him how she had prepared them.
+Clearly, if Bob randomly looks at or tastes the candies, the result he gets is completely random and meaningless, so Alice can be sure that Bob does not have any information on her bit.
+Later on, at the revealing stage, Alice tells Bob her choice of preparation, and Bob can verify that she did no cheat (i.e., changed the bit she was originally intended to send) by asking Alice what he should get for each candy.
+Because Alice cannot change the candies once they're in Bob's hand, if Alice did cheat by telling Bob the opposite method, she would need to guess Bob's random results, which has a success probability of $2^{-n}$.
+Therefore, cheating can be prevented with arbitrarily high probability.
+While unconditionally secure bit commitment has been proven to be impossible even with quantum cryptography by Meyers~\cite{mayers1997unconditionally}, the proof does not apply to the candy protocol as described above, because no entanglement is allowed.
+This example demonstrates again the versatility of the candy model.
+
 \section{Discussion}
-A similar ``classical implementation'' of the BB84 protocol has been discussed before~\cite{svozil2006staging,Svozil2014}. 
-The difference is that while in~\cite{svozil2006staging} the complementary observables corresponding to the two basis are demonstrated using different color filters, in our model the complementarity is enforced by the properties of the chocolate candies themselves.
-This removes the requirement in~\cite{svozil2006staging} that Eve must also put on color glasses, so is identical to the original photonic construction.
-Moreover, it was noted in~\cite{Svozil2014} that for the previous construction Alice and Bob cannot detect the presence of Eve because her measurement does not change the state of a candy.
-In comparison, we have provided a construct where complementarity can be understood under a very classical setting.
-Of course, as also noted in~\cite{Svozil2014}, the BB84 protocol did not make use of contextuality~\cite{kochen1975problem,bell2001problem}, another crucial resource of quantum systems~\cite{howard2014contextuality}.
-This makes it possible to construct ``classical'' analogies which are less ``counterintuitive'' and do not, for example, violate a general Bell inequality.
 
-The picture with classical complementary observables of chocolate candies can also be helpful in discussions about nonlocality.
-For example, non-local boxes (NLBs)~\cite{popescu1994quantum} are imaginary devices that allow two players Alice and Bob to win the CHSH game~\cite{buhrman2001quantum} with probability unity, whereas the best quantum strategy has a winning probability of $\cos[2](\pi/8) \approx 0.85$~\cite{broadbent2006power}.
-NLBs exhibit correlations that cannot be produced only by local rules, hence the name.
-In the candy picture, the correlations of an NLB can be translated as follows.
-Suppose now that the machine has been upgraded and can produce two non-local chocolate candies every time.
-Recall, that we have made the bit assignment that $R = 0,\ G = 1$ and $M = 0,\ C = 1$ to the characters of a candy.
-The pair of candies are produced and distributed to Alice and Bob who may be far apart and are not allowed to communicate.
-Upon receiving a candy, Alice and Bob can choose to either look or taste, and will obtain a bit corresponding to the observed character.
-The candies are correlated in the following way: if both Alice and Bob choose to taste, they will obtain results that correspond to the same bit, in this case the same taste.
-In all other cases, they will obtain results that correspond to opposite bits.
-As an example, if Alice tastes chocolate ($C = 1$), then if Bob choose to taste then he will taste chocolate ($C = 1$) too; and if Bob instead choose to look, he will observe red ($R = 0$).
+A method of demonstrating quantum characteristics using classical models has been discussed before by Wright~\cite{wright1990generalized} and Svozil~\cite{svozil2006staging}. 
+In their ``generalized urn model'', complementary properties of quantum systems are illustrated with numbers written in different colors, printed on a chocolate ball wrapped with a black foil.
+We found this representation slightly unsatisfactory in explaining quantum clearly for several reasons.
+First, complementarity in this model is only meaningful when the observer is wearing colored glasses that filters out other colors, which may cause some to misunderstand that complementarity only appears with special measuring apparatus.
+As we have seen, the fact that complementarity is intrinsic for quantum systems can be incorporated into constraints on all preparation machines, being able to only prepare candies with one definite property.
+Second, the effect of non-destructive measurement on quantum states can also be demonstrated by requiring complete information erasure of observing, such that a new candy with the same observed property must be prepared after every observation.
+This addresses the issue raised in~\cite{Svozil2014} that, when BB84 is carried out using quanta in the generalized urn model, the security aspect cannot be preserved as Alice and Bob cannot detect the presence of the eavesdropper (who can actually accurately learn \textit{all} of Alice and Bob's bits by simply not wearing colored glasses).
+Third, since nonlocality can be introduced to the candy model in a straightforward way, it can serve as a useful tool to examine quantum and beyond-quantum correlations, which is not so easy for a local realistic urn model.
 
-Our candy model creates new possibilities to explore beyond-quantum correlations like the NLBs, but can be further generalized to include more possibilities. 
-For example, the concept of mutually unbiased bases (MUBs) is an important concept in theoretical quantum information that also has practical consequences.
-It has been shown that some QKD protocols using higher dimensional systems (which has a larger number of MUBs) can offer security advantages compared to the original BB84 protocol~\cite{cerf2002security}.
-However, how to find the set of MUBs for a $d$--dimensional system when $d$ is not a prime power remains an unknown problem as of today~\cite{coles2017entropic}.
-Using the candy model, we can easily construct systems with an arbitrary number of MUBs by assuming additional characters that the candies may have: for example, in addition to color and taste, we may assume that the candies have additional characters such as texture, smell, etc.
-Their behavior with increased number of characters can provide insights onto the behavior of real quantum systems.
-%it is known that the number of mutually unbiased bases (MUBs) in a $d$--dimensional Hilbert space can at most be $d+1$~\cite{bandyopadhyay2002new}.
-%In the case of a qubit with $d=2$, the 3 MUBs are given by the Pauli matrices.
+\todo{(not discussed: beyond-quantum correlations, MUBs, quaternions -- leave to next paper?)}
 
-
+As Wright commented on generalized urn models~\cite{wright1990generalized}, ``...the very simplicity and concreteness of these examples can lead us to feel more comfortable with a result or construction and can suggest a solution to a simpler problem on the way to a more general result.''
+We hope that the candy model can serve even further as a useful tool, not only in visualizing and understanding quantum and beyond-quantum correlations, but also in publicizing quantum technologies.
 
 \bibliographystyle{naturemag}
 \bibliography{references,/home/iqcmlabc/Documents/Bibliography/candyQKD}
