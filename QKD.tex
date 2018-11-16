@@ -39,69 +39,79 @@
 \maketitle
 
 
-In this work, we introduce a pedagogical model for describing some characteristic properties of quantum mechanical systems, such as complementarity, superposition, and no-cloning.
-We use this model to describe some common quantum cryptography protocols in a way that is easy to understand by someone without previous knowledge on quantum mechanics.
-This intuitive description can be useful for researchers to understand and visualize protocols, or for the general public to make sense of quantum technologies.
-
+In this work, we introduce a pedagogical model for describing some basic concepts in quantum information such as complementarity, superposition, and quantum cryptography.
+This simple yet powerful model is based on the picture of ``quantum candies'', which we expect to be fully understandable by a layperson without previous knowledge on quantum mechanics.
+This intuitive description can be useful for researchers to understand and visualize protocols, and for the general public to make sense of quantum technologies.
 
 
 \section{Introduction}
-The development of quantum information science has proved fruitful in both theoretical and experimental aspects.
-In particular, among the realized demonstrations, quantum key distribution (QKD) protocols are arguably the most successful and practical examples\todo{(add some example work)}.
-It is gratifying to see that the public is becoming more familiar with quantum technology research than ever, thanks to the advancement of Internet and social media.
-On the other hand, while the basic idea behind these protocols are not very complicated for an insider, it can be abstruse for someone without a background in quantum physics and quantum information.
-This hinders general audiences from correctly understanding these concepts and is unhelpful for publicizing quantum technologies.
+
+Quantum information science and technology is a growing field that provides interesting concepts such as quantum computers, quantum teleportation, and quantum cryptography.
+Its development has proved fruitful in both theoretical and experimental aspects, leading to various demonstrations and even to some startup companies. 
+All these, in their simplest forms, are based on information units known as quantum binary digits, namely quantum bits or qubits.
+Many applications of quantum information, with quantum key distribution (QKD) being a successful and practical example~\cite{bennett1984quantum,grosshans2003quantum,schmitt2007experimental}, can be explained using qubits.
+While the basic ideas behind quantum information in general, and especially behind these QKD protocols, are not very complicated for an ``insider'', they can be abstruse for someone without the necessary physics or mathematics background.
+This hinders general audiences from correctly understanding these concepts.
+Thus, an intuitive description of qubits and of QKD can be useful for researchers in other fields to understand and visualize protocols, or for the general public to make sense of quantum technologies. 
+
 
 In this work, we provide a simple but powerful model containing candy-producing machine and some candies, which is capable of explaining various quantum cryptography protocols.
-In general, we expect out model to be fully understandable by a layperson, presumably someone who has no knowledge about complex numbers or even the number $\sqrt{2}$.
+This allows one to explain to a layperson, presumably without knowledge about complex numbers or even the number $\sqrt{2}$, about the concepts of qubits, superpositions, and quantum cryptography.
 On the other hand, our model improves upon previous constructions and has a more accurate correspondence with the true quantum mechanical model.
 This makes it a powerful tool for understanding and developing more complex protocols.
-After introducing the setup, we will illustrate how common quantum cryptographic protocols can be properly explained with this model, and discuss the correspondence with conventional quantum mechanics.
+This paper will be structured as follows.
+In \cref{candy section} we introduce the quantum candy (or, qandy) model, and use it to explain the basic unit in quantum information -- a qubit.
+In \cref{QKD section} we present some standard quantum cryptography protocols with quantum candies. 
+In \cref{correspondence section} the relationship with conventional quantum mechanics, quantum information and QKD will be demonstrated in more detail.
+We also comment on a previous construction that shares some similarity to ours in \cref{discussion section}.
 
 
-\section{Quantum candy model}
+\section{Quantum candy model}\label{candy section}
 Let us imagine a machine that produces candies.
-Each candy produced by it can have multiple \textit{properties}, examples of which include color, taste, texture, etc.
-Under each property can be multiple \textit{characters}: for example, the color of a candy can be red or green or blue, the taste can be chocolate or vanilla or milk.
-Different properties can coexist on a single candy: for example, a candy can have a red color, a chocolate taste, and a crunchy texture.
-However, a candy cannot show more than one character at the same time for each property: for example, it cannot be both red and green.
-As shown in \cref{candy}, each candy produced by the machine will be wrapped in an identical piece of edible but opaque candy paper, such that none of its properties can be known by only looking at its appearance.
+Each candy produced by it has two \textit{properties}: color and taste.
+Each such property can be of one \textit{character} or another: for example, the color can be red or green, and the taste can be chocolate or vanilla.
+As shown in \cref{candy}, each candy produced by the machine will be wrapped in an identical piece of edible but opaque candy paper, such that none of its properties can be known by only looking at a freshly prepared candy.
+
+For conventional (which we'll call \textit{classical}) candies, different properties always coexist on a single candy.
+For example, a candy can have a red color and a chocolate taste which we can denote as [red,chocolate], or alternatively, [red,vanilla], or [green,vanilla], etc.
+Furthermore, a candy does not show more than one character for each property: for example, a candy cannot be both red and green.
+A candy-lover, in a classical world, can look at the candy and can taste it, hence learn both its color and its taste.
+The machine producing a candy can be programed, for a specific candy, to prepare it with any two characters such as [red,chocolate].
+
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{candy.png}
-	\caption{Top: illustrative figures of quantum candies with 3 properties (from left to right: a  candy wrapped in opaque paper; a green, chocolate, crunchy candy; and a red, vanilla, soft candy). Bottom: a candy machine producing a candy with 2 properties (color and taste), each having 2 characters (red vs. green, chocolate vs. vanilla).} 
+	\includegraphics[width=0.55\textwidth]{candy.png}
+	\caption{Top: illustrative figures of quantum candies with two properties, color and taste (from left to right: a  candy wrapped in opaque paper; a green, chocolate candy; and a red, vanilla candy). 
+	These two properties cannot be learned at the same time for one candy. 
+	Bottom: a machine producing quantum candies that looks identical from the outside. 
+	Which character it shows depends on how one approaches it.} 
 	\label{candy}
 \end{figure}
 
-When a person uses the machine produces a candy, he/she must specify a character for \textit{one} property, and one property only: other properties that do not get specified will be randomly assigned a character by the machine, which is unknown to the outside world.
-As demonstrated in \cref{candy}, the user would press one button on the machine, and it will produce a candy with that character.
-The machine does not allow specifying more than one property.
-For example, Alice can input to the machine that she would like to prepare a red candy.
-She knows for certain that she will get a candy with red color, but is completely ignorant about its other properties, such as its taste.
-Moreover, there is no way to get around this ignorance: it is absolutely impossible to, for example, hack the machine and obtain this additional information.
+In contrast, a quantum candy (qandy) differs from a classical one in the following sense.
+A qandy-lover (in this quantum world), can choose whether to look or taste, but not both.
+If a person unwraps the candy and looks at it, its color will be learned, but its taste will be destroyed.
+If a person tastes it without unwrapping or looking, its taste will be learned but its color will be destroyed.
+Thus, only a single property can be learned for a qandy.
+Note that while this appears to be a strange requirement for a candy, it \textit{can} be enforced by a classical rule.
+For example, we may assume that if a qandy is unwrapped and exposed to light, a chemical reaction will be triggered such that its content will immediately become tasteless.
 
-It is then natural to ask what can we learn from a candy that has been produced.
-With non-quantum candies, it is clear that one can know both the color and taste of a candy unambiguously; however, this is forbidden for quantum candies.
-We require that depending on what was done to the candy, only the exact character corresponding to \textit{one} property can be known.
-If a person looks at the candy, he/she will know exactly what color it has, but then cannot know its taste or any other property.
-Note that while this appears to be a strange requirement for a candy, it \textit{can} be enforced using a classical rule.
-Consider a candy with two properties, color and taste, for example.
-We may setup the candy machine such that if the candy is unwrapped and exposed to light, a chemical reaction will be triggered such that its content will immediately become completely tasteless.
-Thus one only has two options upon receiving a candy: they can either taste and swallow it (without unwrapping), making its color unknown during the process; or unwrap it and see its color, thereby destroying its taste.
-A similar model can be constructed for candies with more properties, although this becomes a less trivial task.
-
-Let's summarize the key information presented above.
-First, the candy machine prepares candies with only one definite property, and randomly assigns a character to other properties.
-Second, no information about a candy can be obtained just from its appearance.
-Third, depending on what was done to a candy, at most one of its property can be learned precisely, and information on its other properties will be permanently lost during this process.
+A qandy machine, as shown in \cref{candy}, can only produce a qandy with one character out of the possible four, for example a green qandy, or a chocolate qandy.
+A user would press one button on the machine, and it will produce a candy with that character.
+If a qandy-lover, Alice, chooses to look at a red or green qandy, she will observe red or green, respectively.
+On the other hand, if Alice looks at a chocolate or vanilla qandy, she would observe a random color (red or green), with equal probability.
+The same happens if she tastes a red or green qandy.
+We summarize the key differences between qandies and classical candies below: first, the qandy machine prepares qandies with only one definite property.
+Second, no information about a qandy can be obtained just from its appearance.
+Third, depending on how the user approaches a qandy, one character will be learned while all information on other properties will be permanently lost.
 
 
-\section{Quantum cryptography with candies}
-We now demonstrate the implementation of several common quantum cryptography protocols using these candies.
+\section{Quantum cryptography with candies}\label{QKD section}
+We now demonstrate the implementation of several common quantum cryptography protocols using qandies.
 In particular, many quantum key distribution (QKD) protocols can be demonstrated easily with this model.
-Key distribution is the essential component in public key cryptography, a practicable way to achieve safe classical communication.
-The safety of public key cryptography relies on securely distributing the key from the sender to the receiver in order to encrypt and decrypt the message, while not leaking the key to a malice third party.
+%Key distribution is the essential component in public key cryptography, a practicable way to achieve safe classical communication.
+%The safety of public key cryptography relies on securely distributing the key from the sender to the receiver in order to encrypt and decrypt the message, while not leaking the key to a malice third party.
 The problem being considered is as follows: Alice would like to transmit a string of random bits to Bob, so that the string can then be used as a secret key (known only to Alice and Bob) to encrypt meaningful messages.
 The classical communication channel between the two parties is unsafe, and a quantum channel (which allows them to send qubits to each other) could also be eavesdropped by a third party.
 Alice and Bob would like to know about the presence of an eavesdropper, provided that he/she holds some information about the secret key being sent. 
@@ -218,7 +228,7 @@ Upon successful matching of one candy, Alice and Bob would share a trit of infor
 And just like in the other protocols, if Eve examines a different property than Alice's choice, she would (statistically) inevitably introduce errors to Bob's results.
 
 
-\section{Correspondence with quantum mechanics}
+\section{Correspondence with quantum mechanics}\label{correspondence section}
 As their name suggests, quantum candies are designed so that they exhibit quantum-like behaviors.
 The most important characteristics of the candies that allow them to demonstrate most quantum cryptography protocols, are complementarity and randomness.
 Complementarity implies that one cannot simultaneously determine multiple non-commuting observables of a quantum system, while randomness means that when the system is measured, the actual outcome is randomly drawn from all possible outcomes according to some probability distribution.
@@ -273,7 +283,7 @@ Therefore, cheating can be prevented with arbitrarily high probability.
 While unconditionally secure bit commitment has been proven to be impossible even with quantum cryptography by Meyers~\cite{mayers1997unconditionally}, the proof does not apply to the candy protocol as described above, because no entanglement is allowed.
 This example demonstrates again the versatility of the candy model.
 
-\section{Discussion}
+\section{Discussion}\label{discussion section}
 
 A method of demonstrating quantum characteristics using classical models has been discussed before by Wright~\cite{wright1990generalized} and Svozil~\cite{svozil2006staging}. 
 In their ``generalized urn model'', complementary properties of quantum systems are illustrated with numbers written in different colors, printed on a chocolate ball wrapped with a black foil.
